@@ -90,32 +90,26 @@
 
   /* ── HERO ── */
   .hero {
-    display: flex;
-    align-items: stretch;
-    height: 28vh;
+    padding: 2.5rem 3.5rem 2rem;
     background: var(--bg);
-    gap: 0;
-    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
   }
 
   .hero-about {
-    width: 35%;
+    max-width: 520px;
     flex-shrink: 0;
-    padding: 3rem 3.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 
   .hero-image {
-    flex: 1;
-    overflow: hidden;
+    flex-shrink: 0;
   }
 
   .hero-image img {
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 280px;
+    height: 167px;
     object-fit: cover;
     object-position: center;
     filter: sepia(8%) saturate(88%) brightness(97%);
