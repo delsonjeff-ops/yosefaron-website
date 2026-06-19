@@ -68,17 +68,15 @@
     line-height: 1.2;
   }
 
-  .nav-tagline-bar {
-    position: absolute;
-    left: 70%;
-    transform: translateX(-50%);
+  .hero-tagline {
+    text-align: center;
     font-family: var(--serif);
     font-style: italic;
     font-size: 18px;
     font-weight: 400;
     color: #111111;
     letter-spacing: 0.01em;
-    pointer-events: none;
+    margin-bottom: 0.75rem;
     user-select: none;
   }
 
@@ -118,6 +116,9 @@
 
   .hero-image {
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .hero-image img {
@@ -364,7 +365,6 @@
     .hero-about { width: 100%; padding: 2rem 1.25rem 1.5rem; }
     .hero-image { width: 100%; height: 55vw; }
     .hero-about-text { font-size: 14px; }
-    .nav-tagline-bar { display: none; }
     .slideshow-photo-wrap { height: 300px; }
     .slideshow-photo-wrap img { max-width: calc(100% - 80px); max-height: 100%; }
 
@@ -431,7 +431,6 @@
 <!-- NAV -->
 <nav>
   <div class="logo"><span style="display:inline-block;width:1px;height:0.7em;background:#111111;opacity:0.55;vertical-align:middle;margin-right:0.45em;"></span>Yosef Aron <span style="font-size:0.75em;">made that</span><span style="display:inline-block;width:1px;height:0.7em;background:#111111;opacity:0.55;vertical-align:middle;margin-left:0.45em;"></span></div>
-  <p class="nav-tagline-bar">functional&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;beautiful&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;solid</p>
 </nav>
 
 <!-- NAV MOBILE -->
@@ -447,6 +446,7 @@
     <p class="hero-about-text">Every piece built to order, designed to fit the room exactly as it is. No two jobs look the same — but each one is held to the same standard: quality craftsmanship, simplicity of design, and a beautiful result.</p>
   </div>
   <div class="hero-image">
+    <p class="hero-tagline">functional&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;beautiful&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;solid</p>
     <img src="images/web/mantel-02.jpg" alt="White oak fireplace mantel"/>
   </div>
 </div>
