@@ -92,10 +92,27 @@
   .hero {
     padding: 2.5rem 3.5rem 2rem;
     background: var(--bg);
+    display: flex;
+    align-items: center;
+    gap: 3rem;
   }
 
   .hero-about {
     max-width: 520px;
+    flex-shrink: 0;
+  }
+
+  .hero-image {
+    flex-shrink: 0;
+  }
+
+  .hero-image img {
+    display: block;
+    width: 420px;
+    height: 250px;
+    object-fit: contain;
+    object-position: center;
+    filter: sepia(8%) saturate(88%) brightness(97%);
   }
 
   .hero-about-subtitle {
@@ -415,6 +432,9 @@
     <p class="hero-about-subtitle">Wood Furnishings, Accent Pieces, Custom Designs</p>
     <p class="hero-about-text">Every piece built to order, designed to fit the room exactly as it is. No two jobs look the same — but each one is held to the same standard: quality craftsmanship, simplicity of design, and a beautiful result.</p>
   </div>
+  <div class="hero-image">
+    <img src="images/web/mantel-02.jpg" alt="White oak fireplace mantel"/>
+  </div>
 </div>
 
 <!-- PHOTOS -->
@@ -703,7 +723,6 @@
     { src: 'images/web/tilefloor-01.jpg',    caption: 'Tiled floor, custom layout',                   orient: 'portrait'  },
     { src: 'images/web/rollingshelf-01.jpg', caption: 'Roll-away closet shelving unit',               orient: 'portrait'  },
     { src: 'images/web/mantel-01.jpg',       caption: 'White oak fireplace mantel',                   orient: 'landscape' },
-    { src: 'images/web/mantel-02.jpg',       caption: '',                                             orient: 'landscape' },
     { src: 'images/web/trim-o1.jpg',         caption: 'Custom wall trim',                             orient: 'portrait'  },
     { src: 'images/web/zalman-02.jpg',       caption: 'White oak shelving with painted casing',       orient: 'portrait'  },
     { src: 'images/web/selected-09.jpg',     caption: 'Clean, simple closet',                        orient: 'portrait'  },
