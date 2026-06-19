@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Yosef Aron made that</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FDFAF3;
+    --bg-card: #e8e5df;
+    --bg-card-alt: #e4e0da;
+    --nav-bg: #111111;
+    --text: #1a1612;
+    --text-mid: rgba(26,22,18,0.55);
+    --text-dim: rgba(26,22,18,0.35);
+    --rule: rgba(26,22,18,0.1);
+    --serif: 'Georgia', 'Times New Roman', serif;
+    --sans: 'Helvetica Neue', 'Arial', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--serif);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  .pre-nav {
+    display: none;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3.5rem;
+    border-bottom: none;
+    background: var(--bg);
+    position: relative;
+  }
+
+  .nav-location {
+    font-size: 19px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: #111111;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .logo {
+    font-size: 23px;
+    letter-spacing: 0.01em;
+    color: #111111;
+    font-style: italic;
+    font-weight: 400;
+    font-family: var(--serif);
+    user-select: none;
+    line-height: 1.2;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    font-family: var(--sans);
+    text-transform: uppercase;
+    color: rgba(17,17,17,0.65);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .nav-links a:hover { color: #111111; opacity: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 2.5rem 3.5rem 2rem;
+    background: var(--bg);
+  }
+
+  .hero-about {
+    max-width: 520px;
+  }
+
+  .hero-about-subtitle {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 19px;
+    color: #111111;
+    margin: 0 0 14px;
+    line-height: 1.3;
+  }
+
+  .hero-about-text {
+    font-family: var(--serif);
+    font-size: 15px;
+    color: rgba(17,17,17,0.65);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ── PHOTO SCROLL ── */
+  .photos-section {
+    padding: 1rem 3.5rem 3rem;
+    max-width: 900px;
+  }
+
+  .photo-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .photo-row.right { flex-direction: row-reverse; }
+
+  .photo-item {
+    flex-shrink: 0;
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  .photo-item.landscape {
+    width: 400px;
+    height: 267px;
+  }
+
+  .photo-item.portrait {
+    width: 300px;
+    height: 400px;
+  }
+
+  .photo-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    filter: sepia(8%) saturate(88%) brightness(97%);
+  }
+
+  .photo-caption {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 17px;
+    color: rgba(17,17,17,0.45);
+    line-height: 1.6;
+    padding-bottom: 4px;
+    flex: 1;
+  }
+
+  .photo-row.right .photo-caption { text-align: right; }
+
+  @media (max-width: 720px) {
+    .hero { padding: 1.75rem 1.25rem 1.5rem; }
+    .photos-section { padding: 1rem 1.25rem 2rem; }
+    .photo-row { display: block; margin-bottom: 2.75rem; }
+    .photo-item.landscape { width: 100%; height: 220px; }
+    .photo-item.portrait { width: 100%; height: 360px; }
+    .photo-caption { display: block; margin-top: 10px; text-align: left !important; }
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    margin-top: 3rem;
+    border-top: 2px solid #d6d1c2;
+    display: grid;
+    grid-template-columns: 1fr;
+    background: #FDFAF3;
+  }
+
+  .contact-left {
+    padding: 2.5rem 2.5rem;
+  }
+
+  .contact-sub {
+    font-size: 12px;
+    color: rgba(17,17,17,0.55);
+    font-style: italic;
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+
+  .contact-phone {
+    font-size: 18px;
+    color: rgba(17,17,17,0.65);
+    font-style: italic;
+    font-family: var(--serif);
+    margin-bottom: 2rem;
+    letter-spacing: 0.01em;
+  }
+
+  .contact-btns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 11px;
+    font-family: var(--sans);
+    letter-spacing: 0.07em;
+    color: rgba(17,17,17,0.7);
+    text-decoration: none;
+    border: 0.5px solid rgba(17,17,17,0.2);
+    padding: 11px 18px;
+    cursor: pointer;
+    width: fit-content;
+    background: transparent;
+    transition: color 0.18s, border-color 0.18s;
+    text-transform: uppercase;
+  }
+
+  .contact-btn:hover {
+    color: #111111;
+    border-color: rgba(17,17,17,0.4);
+  }
+
+  .contact-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+
+
+  .projects-section::before {
+    content: '';
+    position: absolute;
+    top: 1.75rem;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: none;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* ── CONTACT COLOR FIXES ── */
+  .contact-name {
+    font-size: 20px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: #111111;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+    text-shadow:
+      none;
+  }
+  .contact-section { color: #111111; }
+  .contact-section .contact-sub { color: rgba(17,17,17,0.55); }
+  .contact-section .contact-btn { color: rgba(17,17,17,0.7); border-color: rgba(17,17,17,0.2); }
+  .contact-section .contact-btn:hover { color: #111111; border-color: rgba(17,17,17,0.5); }
+  /* ── FOOTER ── */
+  footer {
+    padding: 1.4rem 2.5rem;
+    border-top: 0.5px solid rgba(17,17,17,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: rgba(17,17,17,0.4);
+    font-style: italic;
+    letter-spacing: 0.02em;
+    background: #FDFAF3;
+  }
+
+  /* ── MOBILE NAV ── */
+  .nav-mobile {
+    display: none;
+  }
+
+  @media (max-width: 720px) {
+    nav { display: none; }
+
+    .nav-mobile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      background: #FDFAF3;
+      padding: 0.45rem 1.1rem 0.4rem;
+    }
+
+    .nav-mobile-logo {
+      display: inline-block;
+      font-size: 18px;
+      font-family: var(--serif);
+      font-style: italic;
+      color: #111111;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+      text-align: left;
+    }
+
+    .nav-mobile-location {
+      font-size: 15px;
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: #111111;
+      text-align: right;
+    }
+
+
+    .nav-mobile-logo .bar { display: inline-block; }
+    .nav-mobile-links { display: none; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 720px) {
+
+    /* HERO */
+    .hero { padding: 0 1.25rem; }
+    .hero-body { grid-template-columns: 1fr; gap: 1.25rem; margin-top: 1.25rem; align-items: start; }
+    .hero-about-text { font-size: 14px; }
+    .nav-tagline-bar { display: none; }
+    .slideshow-photo-wrap { height: 300px; }
+    .slideshow-photo-wrap img { max-width: calc(100% - 80px); max-height: 100%; }
+
+    /* PROJECTS */
+    .projects-section { padding: 2rem 1.25rem 0; }
+    .projects-section::before { top: 0.9rem; }
+    .project { grid-template-columns: 1fr; }
+    .project-photos { border-right: none; border-bottom: 0.5px solid var(--rule); }
+    .photo-slot.tall { height: 204px !important; min-height: 204px !important; }
+    .project-info {
+        height: auto
+      filter: none;
+      min-height: unset;
+      padding: 0.1.4rem 1.25rem 0.2rem;
+    }
+    .project { margin-bottom: 1.25rem; }
+    .project-num, .project-name, .project-desc, .project-status {
+      filter: none;
+    }
+    .project-text-block { padding-right: 0; }
+    .project-name { font-size: 18px; }
+    .project-desc { font-size: 13px; max-width: 100%; }
+
+    /* LIGHTBOX */
+    #lightbox { filter: none !important; }
+
+    /* CONTACT */
+    .contact-left {
+      padding: 2rem 1.25rem;
+    }
+    .contact-name { font-size: 17px; }
+    .form button { width: 100%; text-align: center; justify-content: center; }
+
+    /* FOOTER */
+    footer {
+      padding: 1.2rem 1.25rem;
+      flex-direction: column;
+      gap: 0.4rem;
+      text-align: center;
+    }
+  }
+
+  .photo-slot img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: opacity 0.25s;
+    filter: sepia(10%) saturate(85%) brightness(97%);
+  }
+/* ── HERO COPY FADE TRANSITION ── */
+#hero-copy {
+  transition: opacity 1.2s ease;
+}
+</style>
+<body>
+
+<!-- PRE-NAV BAND -->
+<div class="pre-nav"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><span style="display:inline-block;width:1px;height:0.7em;background:#111111;opacity:0.55;vertical-align:middle;margin-right:0.45em;"></span>Yosef Aron <span style="font-size:0.75em;">made that</span><span style="display:inline-block;width:1px;height:0.7em;background:#111111;opacity:0.55;vertical-align:middle;margin-left:0.45em;"></span></div>
+  <p class="nav-tagline-bar">functional&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;beautiful&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;&nbsp;solid</p>
+</nav>
+
+<!-- NAV MOBILE -->
+<div class="nav-mobile">
+  <div class="nav-mobile-logo"><span class="bar" style="display:inline-block;width:1px;height:0.65em;background:#111111;opacity:0.55;vertical-align:middle;margin-right:0.4em;"></span>Yosef Aron <span style="font-size:0.75em;">made that</span><span class="bar" style="display:inline-block;width:1px;height:0.65em;background:#111111;opacity:0.55;vertical-align:middle;margin-left:0.4em;"></span></div>
+</div>
+
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-about">
+    <p class="hero-about-subtitle">Wood Furnishings, Accent Pieces, Custom Designs</p>
+    <p class="hero-about-text">Every piece built to order, designed to fit the room exactly as it is. No two jobs look the same — but each one is held to the same standard: quality craftsmanship, simplicity of design, and a beautiful result.</p>
+  </div>
+</div>
+
+<!-- PHOTOS -->
+<div class="photos-section" id="photos"></div>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-left">
+    <p class="contact-name">Yosef Aron Made That</p>
+    <p class="contact-sub">Brooklyn, NY</p>
+    <p class="contact-phone"><a href="tel:+13472173366" style="color:inherit;text-decoration:none;">347·217·3366 — Call Yosef</a></p>
+    <div class="contact-btns">
+      <a class="contact-btn" href="https://wa.me/13472173366" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.855L.057 23.273a.75.75 0 00.92.92l5.433-1.476A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.523-5.188-1.437l-.37-.217-3.851 1.046 1.046-3.827-.228-.381A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+        WhatsApp
+      </a>
+      <a class="contact-btn" href="https://instagram.com/yosefaronmadethat" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+        </svg>
+        Instagram
+      </a>
+      <a class="contact-btn" href="mailto:yosefmadethat@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M2 7l10 7 10-7"/>
+        </svg>
+        Email
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var galleries = {
+    '01': {
+      images: ['images/shed-01.jpg','images/shed-02.jpg','images/shed-03.jpg'],
+      labels: ['1 / 3 — front view', '2 / 3 — side detail', '3 / 3 — roof close-up'],
+      positions: ['center center', 'center center', 'center center'],
+      current: 0
+    },
+    '02': {
+      images: ['images/ikea-01.jpg','images/ikea-02.jpg','images/ikea-03.jpg','images/ikea-04.jpg'],
+      labels: ['1 / 4 — front view', '2 / 4 — angle', '3 / 4 — shelf detail', '4 / 4 — Bestå base'],
+      positions: ['center center', 'center center', 'center center', 'center center'],
+      current: 0
+    },
+    '02b': {
+      images: ['images/bookcase2x10-01.jpg','images/bookcase2x10-02.jpg','images/bookcase2x10-03.jpg'],
+      labels: ['1 / 3 — filled in', '2 / 3 — during build', '3 / 3 — fresh build'],
+      positions: ['center center', 'center center', 'center center'],
+      current: 0
+    },
+    '03b': {
+      images: ['images/whiteoak-01.jpg','images/whiteoak-02.jpg','images/whiteoak-03.jpg','images/whiteoak-04.jpg','images/whiteoak-05.jpg'],
+      labels: ['1 / 5 — full wall', '2 / 5 — shelf detail', '3 / 5 — oak shelves', '4 / 5 — crown molding', '5 / 5 — base cabinets'],
+      positions: ['center center', 'center center', 'center center', 'center center', 'center center'],
+      current: 0
+    },
+    '04': {
+      images: ['images/antique-01.jpg','images/antique-03.jpg'],
+      labels: ['1 / 2 — full wall', '2 / 2 — fresh build'],
+      positions: ['center center', 'center center'],
+      current: 0
+    },
+    '05': {
+      images: ['images/cedar-01.jpg','images/cedar-02.jpg','images/cedar-03.jpg'],
+      labels: ['1 / 3 — corner view', '2 / 3 — shelving and door', '3 / 3 — straight on'],
+      positions: ['center center', 'center center', 'center center'],
+      current: 0
+    },
+    '06': {
+      images: ['images/selected-01.jpg','images/selected-02.jpg','images/selected-03.jpg','images/selected-04.jpg','images/selected-05.jpg','images/selected-06.jpg','images/selected-07.jpg','images/selected-08.jpg','images/selected-09.jpg','images/selected-10.jpg'],
+      labels: ['1 / 10 — mantel detail', '2 / 10 — white oak mantel', '3 / 10 — slatted radiator cover', '4 / 10 — floating oak shelves', '5 / 10 — tiled pantry shelves', '6 / 10 — tiled pantry, angle', '7 / 10 — pantry built-in', '8 / 10 — rolling storage unit', '9 / 10 — bedroom built-in', '10 / 10 — walk-in closet'],
+      positions: ['center center', 'center center', 'center center', 'center center', 'center center', 'center center', 'center center', 'center center', 'center center', 'center center'],
+      current: 0
+    }
+  };
+  function galleryNext(id) {
+    var g = galleries[id];
+    if (!g) return;
+    var nextIndex = (g.current + 1) % g.images.length;
+    var nextSrc = g.images[nextIndex];
+
+    // Preload next image before swapping
+    var preload = new Image();
+    preload.onload = function() {
+      var img = document.getElementById('gallery-' + id + '-img');
+      var lbl = document.getElementById('gallery-' + id + '-label');
+      img.style.opacity = '0';
+      setTimeout(function() {
+        g.current = nextIndex;
+        img.src = nextSrc;
+        img.style.objectPosition = g.positions[g.current];
+        img.style.opacity = '1';
+        lbl.textContent = g.labels[g.current];
+      }, 250);
+    };
+    preload.src = nextSrc;
+  }
+
+  function openLightboxImg(src) {
+    var lb = document.getElementById('main-lightbox');
+    var img = document.getElementById('main-lightbox-img');
+    if (lb && img) { img.src = src; lb.style.display = 'flex'; }
+  }
+
+  // ── LIGHTBOX ──
+  var lb = document.createElement('div');
+  lb.id = 'lightbox';
+  lb.innerHTML = `
+    <div id="lb-bg"></div>
+    <button id="lb-close">✕</button>
+    <button id="lb-prev">&#8592;</button>
+    <button id="lb-next">&#8594;</button>
+    <img id="lb-img" src="" alt=""/>
+    <div id="lb-caption"></div>
+  `;
+  document.body.appendChild(lb);
+
+  var lbStyle = document.createElement('style');
+  lbStyle.textContent = `
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lb-bg {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,16,28,0.96);
+      cursor: pointer;
+    }
+    #lb-img {
+      position: relative;
+      z-index: 2;
+      max-width: 92vw;
+      max-height: 88vh;
+      object-fit: contain;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      filter: sepia(8%) saturate(88%) brightness(97%);
+      border-top: none;
+    }
+    #lb-img.visible { opacity: 1; }
+    #lb-caption {
+      position: absolute;
+      bottom: 1.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      letter-spacing: 0.1em;
+      color: rgba(242,240,235,0.5);
+      text-transform: uppercase;
+      z-index: 3;
+      white-space: nowrap;
+    }
+    #lb-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.4rem;
+      z-index: 4;
+      background: none;
+      border: none;
+      color: rgba(242,240,235,0.6);
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0.4rem;
+      transition: color 0.2s;
+    }
+    #lb-close:hover { color: #f2f0eb; }
+    #lb-prev, #lb-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 4;
+      background: none;
+      border: none;
+      color: rgba(242,240,235,0.5);
+      font-size: 28px;
+      cursor: pointer;
+      padding: 1rem;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    #lb-prev:hover, #lb-next:hover { color: #111111; }
+    #lb-prev { left: 1rem; }
+    #lb-next { right: 1rem; }
+    @media (max-width: 720px) {
+      #lb-prev { left: 0.2rem; }
+      #lb-next { right: 0.2rem; }
+      #lb-img { max-width: 98vw; max-height: 80vh; }
+    }
+  `;
+  document.head.appendChild(lbStyle);
+
+  var lbGalleryId = null;
+
+  function lbOpen(id, index) {
+    lbGalleryId = id;
+    galleries[id].current = index;
+    lbShow();
+    lb.classList.add('open');
+  }
+
+  function lbShow() {
+    var g = galleries[lbGalleryId];
+    var img = document.getElementById('lb-img');
+    var cap = document.getElementById('lb-caption');
+    img.classList.remove('visible');
+    var preload = new Image();
+    preload.onload = function() {
+      img.src = preload.src;
+      setTimeout(function() { img.classList.add('visible'); }, 30);
+    };
+    preload.src = g.images[g.current];
+    cap.textContent = g.labels[g.current];
+  }
+
+  function lbClose() {
+    lb.classList.remove('open');
+    document.getElementById('lb-img').classList.remove('visible');
+  }
+
+  function lbStep(dir) {
+    var g = galleries[lbGalleryId];
+    g.current = (g.current + dir + g.images.length) % g.images.length;
+    lbShow();
+  }
+
+  document.getElementById('lb-bg').addEventListener('click', lbClose);
+  document.getElementById('lb-close').addEventListener('click', lbClose);
+  document.getElementById('lb-prev').addEventListener('click', function() { lbStep(-1); });
+  document.getElementById('lb-next').addEventListener('click', function() { lbStep(1); });
+
+  // Keyboard support
+  document.addEventListener('keydown', function(e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'ArrowRight') lbStep(1);
+    if (e.key === 'ArrowLeft') lbStep(-1);
+    if (e.key === 'Escape') lbClose();
+  });
+
+  // Swipe support for mobile
+  var lbTouchStartX = null;
+  lb.addEventListener('touchstart', function(e) { lbTouchStartX = e.touches[0].clientX; }, {passive:true});
+  lb.addEventListener('touchend', function(e) {
+    if (lbTouchStartX === null) return;
+    var dx = e.changedTouches[0].clientX - lbTouchStartX;
+    if (Math.abs(dx) > 40) lbStep(dx < 0 ? 1 : -1);
+    lbTouchStartX = null;
+  });
+
+  // Wire up photo slots to open lightbox — click on image only
+  document.querySelectorAll('.photo-slot').forEach(function(slot) {
+    var img = slot.querySelector('img');
+    if (!img) return;
+    var id = img.id.replace('gallery-','').replace('-img','');
+    if (!galleries[id]) return;
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      lbOpen(id, galleries[id].current);
+    });
+  });
+
+  // ── PHOTOS ──
+  var slides = [
+    { src: 'images/web/antique-01.jpg',      caption: 'Antique fireplace with new built-in bookcase', orient: 'landscape' },
+    { src: 'images/web/woodfloor-01.jpg',    caption: 'Custom hardwood flooring',                     orient: 'landscape' },
+    { src: 'images/web/bookcase2x10-01.jpg', caption: 'Built-in bookcase — Brooklyn loft',            orient: 'landscape' },
+    { src: 'images/web/floating-01.jpg',     caption: 'White oak floating shelves',                   orient: 'portrait'  },
+    { src: 'images/web/tilefloor-01.jpg',    caption: 'Tiled floor, custom layout',                   orient: 'portrait'  },
+    { src: 'images/web/rollingshelf-01.jpg', caption: 'Roll-away closet shelving unit',               orient: 'portrait'  },
+    { src: 'images/web/mantel-01.jpg',       caption: 'White oak fireplace mantel',                   orient: 'landscape' },
+    { src: 'images/web/mantel-02.jpg',       caption: '',                                             orient: 'landscape' },
+    { src: 'images/web/trim-o1.jpg',         caption: 'Custom wall trim',                             orient: 'portrait'  },
+    { src: 'images/web/zalman-02.jpg',       caption: 'White oak shelving with painted casing',       orient: 'portrait'  },
+    { src: 'images/web/selected-09.jpg',     caption: 'Clean, simple closet',                        orient: 'portrait'  },
+  ];
+
+  function buildPhotos() {
+    var section = document.getElementById('photos');
+    if (!section) return;
+    slides.forEach(function(s, i) {
+      var side = i % 2 === 0 ? 'right' : 'left';
+      var row = document.createElement('div');
+      row.className = 'photo-row ' + side;
+
+      var item = document.createElement('div');
+      item.className = 'photo-item ' + s.orient;
+      var img = document.createElement('img');
+      img.src = s.src;
+      img.alt = s.caption;
+      item.appendChild(img);
+
+      var cap = document.createElement('div');
+      cap.className = 'photo-caption';
+      cap.textContent = s.caption;
+
+      row.appendChild(item);
+      row.appendChild(cap);
+      section.appendChild(row);
+    });
+  }
+
+  buildPhotos();
+
+</script>
+
+
+
+
+
+
+</body>
+</html>
