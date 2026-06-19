@@ -123,12 +123,12 @@
 
   .photo-row {
     display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
     align-items: flex-end;
     gap: 2rem;
     margin-bottom: 4rem;
   }
-
-  .photo-row.right { flex-direction: row-reverse; }
 
   .photo-item {
     flex-shrink: 0;
@@ -165,7 +165,7 @@
     flex: 1;
   }
 
-  .photo-row.right .photo-caption { text-align: right; }
+  .photo-caption { text-align: right; }
 
   @media (max-width: 720px) {
     .hero { padding: 1.75rem 1.25rem 1.5rem; }
@@ -696,7 +696,7 @@
 
   // ── PHOTOS ──
   var slides = [
-    { src: 'images/web/antique-01.jpg',      caption: 'Antique fireplace with new built-in bookcase', orient: 'landscape' },
+    { src: 'images/web/antique-01.jpg',      caption: 'Antique fireplace with new built-in bookcase', orient: 'landscape', pos: 'right center' },
     { src: 'images/web/woodfloor-01.jpg',    caption: 'Custom hardwood flooring',                     orient: 'landscape' },
     { src: 'images/web/bookcase2x10-01.jpg', caption: 'Built-in bookcase — Brooklyn loft',            orient: 'landscape' },
     { src: 'images/web/floating-01.jpg',     caption: 'White oak floating shelves',                   orient: 'portrait'  },
@@ -713,15 +713,15 @@
     var section = document.getElementById('photos');
     if (!section) return;
     slides.forEach(function(s, i) {
-      var side = i % 2 === 0 ? 'right' : 'left';
       var row = document.createElement('div');
-      row.className = 'photo-row ' + side;
+      row.className = 'photo-row';
 
       var item = document.createElement('div');
       item.className = 'photo-item ' + s.orient;
       var img = document.createElement('img');
       img.src = s.src;
       img.alt = s.caption;
+      if (s.pos) img.style.objectPosition = s.pos;
       item.appendChild(img);
 
       var cap = document.createElement('div');
