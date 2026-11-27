@@ -8,7 +8,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #FDFAF3;
+    --bg: #edd9b8;
     --bg-card: #e8e5df;
     --bg-card-alt: #e4e0da;
     --nav-bg: #111111;
@@ -23,7 +23,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--bg);
+    background: #edd9b8;
     color: var(--text);
     font-family: var(--serif);
     min-height: 100vh;
@@ -40,7 +40,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 3.5rem;
+    padding: 1.25rem 3.5rem;
     border-bottom: none;
     background: var(--bg);
     position: relative;
@@ -59,7 +59,7 @@
   }
 
   .logo {
-    font-size: 23px;
+    font-size: 29px;
     letter-spacing: 0.01em;
     color: #111111;
     font-style: italic;
@@ -67,7 +67,9 @@
     font-family: var(--serif);
     user-select: none;
     line-height: 1.2;
-    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
 
@@ -78,10 +80,12 @@
   }
 
   .nav-links a {
-    font-size: 13px;
-    letter-spacing: 0.06em;
-    font-family: var(--sans);
-    text-transform: uppercase;
+    font-size: 17px;
+    letter-spacing: 0.01em;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    text-transform: none;
     color: rgba(17,17,17,0.65);
     text-decoration: none;
     transition: color 0.2s;
@@ -102,18 +106,62 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(253,250,243,0.65) 20%, rgba(253,250,243,0.2) 45%, transparent 70%);
-    z-index: 1;
     pointer-events: none;
   }
 
-  .hero-about {
+  .hero-overlay {
     position: absolute;
-    top: 50%;
-    left: 3.5rem;
-    transform: translateY(-50%);
-    max-width: 480px;
+    inset: 0;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3.5rem 0 2rem;
+  }
+
+  .hero-left {
+    flex-shrink: 0;
+    align-self: flex-start;
+    padding-top: 1.5rem;
+  }
+
+  .hero-location {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 3.5rem;
+    font-size: 15px;
+    font-family: var(--sans);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(17,17,17,0.75);
+  }
+
+  .hero-logo {
+    position: absolute;
+    bottom: 5rem;
+    left: 13rem;
+    font-size: 56px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(17,17,17,0.8);
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-right {
+    max-width: 300px;
+    text-align: left;
+    margin-right: 7rem;
+    align-self: flex-end;
+    padding-bottom: 2rem;
+  }
+
+  .hero-bio {
+    font-family: var(--serif);
+    font-size: 17px;
+    color: rgba(17,17,17,0.7);
+    line-height: 1.75;
   }
 
   .hero-image {
@@ -123,19 +171,24 @@
   .hero-image img {
     display: block;
     width: 100%;
-    height: 55vh;
+    height: 50vh;
     object-fit: cover;
     object-position: center;
-    filter: sepia(8%) saturate(88%) brightness(97%);
+    opacity: 0.5;
   }
 
   .hero-about-subtitle {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 19px;
-    color: #111111;
-    margin: 0 0 14px;
-    line-height: 1.3;
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: 28px;
+    white-space: nowrap;
+    color: rgba(17,17,17,0.9);
+    margin: 0;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: center;
   }
 
   .hero-about-text {
@@ -146,33 +199,32 @@
     margin: 0;
   }
 
-  /* ── PHOTO SCROLL ── */
+  /* ── PHOTO GRID ── */
   .photos-section {
     padding: 3.5rem 3.5rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    background: #edd9b8;
   }
 
   .photo-row {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-end;
-    gap: 2rem;
-    margin-bottom: 4rem;
+    flex-direction: column;
+    margin-bottom: 0;
   }
 
   .photo-item {
-    flex-shrink: 0;
+    width: 100%;
     background: var(--bg);
   }
 
   .photo-item.landscape {
-    width: 500px;
-    height: 334px;
+    height: 220px;
   }
 
   .photo-item.portrait {
-    width: 375px;
-    height: 500px;
+    height: 320px;
   }
 
   .photo-item img {
@@ -191,25 +243,14 @@
     transform: translateY(-5px);
   }
 
-  .photo-caption {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 17px;
-    color: rgba(17,17,17,0.45);
-    line-height: 1.6;
-    padding-bottom: 4px;
-    flex: 1;
-  }
-
-  .photo-caption { text-align: left; }
+  .photo-caption { display: none; }
 
   @media (max-width: 720px) {
     .hero { padding: 1.75rem 1.25rem 1.5rem; }
-    .photos-section { padding: 1rem 1.25rem 2rem; }
-    .photo-row { display: block; margin-bottom: 2.75rem; }
-    .photo-item.landscape { width: 100%; height: 220px; }
-    .photo-item.portrait { width: 100%; height: 360px; }
-    .photo-caption { display: block; margin-top: 10px; text-align: left !important; }
+    .photos-section { padding: 1rem 1.25rem 2rem; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .photo-item.landscape { height: 160px; }
+    .photo-item.portrait { height: 240px; }
+    .photo-caption { margin-top: 6px; text-align: left !important; }
   }
 
   /* ── CONTACT ── */
@@ -218,7 +259,7 @@
     border-top: 2px solid #d6d1c2;
     display: grid;
     grid-template-columns: 1fr;
-    background: #FDFAF3;
+    background: var(--bg);
   }
 
   .contact-left {
@@ -316,7 +357,7 @@
     color: rgba(17,17,17,0.4);
     font-style: italic;
     letter-spacing: 0.02em;
-    background: #FDFAF3;
+    background: var(--bg);
   }
 
   /* ── MOBILE NAV ── */
@@ -332,7 +373,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      background: #FDFAF3;
+      background: var(--bg);
       padding: 0.45rem 1.1rem 0.4rem;
     }
 
@@ -430,28 +471,21 @@
 </style>
 <body>
 
-<!-- PRE-NAV BAND -->
-<div class="pre-nav"></div>
-
-<!-- NAV -->
-<nav>
-  <div class="logo"><span style="display:inline-block;width:1px;height:0.7em;background:#111111;opacity:0.55;vertical-align:middle;margin-right:0.45em;"></span>Yosef Aron <span style="font-size:0.75em;">made that</span><span style="display:inline-block;width:1px;height:0.7em;background:#111111;opacity:0.55;vertical-align:middle;margin-left:0.45em;"></span></div>
-</nav>
-
-<!-- NAV MOBILE -->
-<div class="nav-mobile">
-  <div class="nav-mobile-logo"><span class="bar" style="display:inline-block;width:1px;height:0.65em;background:#111111;opacity:0.55;vertical-align:middle;margin-right:0.4em;"></span>Yosef Aron <span style="font-size:0.75em;">made that</span><span class="bar" style="display:inline-block;width:1px;height:0.65em;background:#111111;opacity:0.55;vertical-align:middle;margin-left:0.4em;"></span></div>
-</div>
-
-
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-about">
-    <p class="hero-about-subtitle">Wood Furnishings, Accent Pieces, Custom Designs</p>
-    <p class="hero-about-text">Every piece built to order, designed to fit the room exactly as it is. No two jobs look the same — but each one is held to the same standard: quality craftsmanship, simplicity of design, and a beautiful result.</p>
-  </div>
+<div class="hero" id="about">
   <div class="hero-image">
     <img src="images/web/mantel-02.jpg" alt="White oak fireplace mantel"/>
+  </div>
+  <div class="hero-overlay">
+    <div class="hero-left">
+      <p class="hero-about-subtitle" style="margin-left:-1.5rem;">Custom designs</p>
+      <p class="hero-about-subtitle" style="margin-top:0.2em; padding-left:2em;">Everyday repairs</p>
+    </div>
+    <!-- <div class="hero-right">
+      <p class="hero-bio">Yosef Aron is a Brooklyn-based craftsman who builds furniture, designs custom pieces, and fixes what's broken — big jobs and small ones alike. Have an idea? Need an idea? Call Yosef Aron.</p>
+    </div> -->
+    <div class="hero-logo">Yosef Aron <span style="font-size:0.65em;">made that</span></div>
+    <div class="hero-location">Brooklyn, NY</div>
   </div>
 </div>
 
@@ -740,7 +774,7 @@
     { src: 'images/web/floating-01.jpg',     caption: 'White oak floating shelves',                   orient: 'portrait'  },
     { src: 'images/web/tilefloor-01.jpg',    caption: 'Tiled floor, custom layout',                   orient: 'portrait'  },
     { src: 'images/web/rollingshelf-01.jpg', caption: 'Roll-away closet shelving unit',               orient: 'portrait'  },
-    { src: 'images/web/mantel-01.jpg',       caption: 'White oak fireplace mantel',                   orient: 'landscape' },
+    { src: 'images/web/mantel-01.jpg',       caption: 'White oak fireplace mantel',                   orient: 'portrait'  },
     { src: 'images/web/trim-o1.jpg',         caption: 'Custom wall trim',                             orient: 'portrait'  },
     { src: 'images/web/zalman-02.jpg',       caption: 'White oak shelving with painted casing',       orient: 'portrait'  },
     { src: 'images/web/selected-09.jpg',     caption: 'Clean, simple closet',                        orient: 'portrait'  },
