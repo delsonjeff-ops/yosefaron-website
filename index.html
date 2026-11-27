@@ -29,6 +29,8 @@
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     position: relative;
+    margin: 0;
+    overflow-x: hidden;
   }
 
   .pre-nav {
@@ -452,8 +454,9 @@
   @media (max-width: 720px) {
 
     /* HERO */
-    .hero { flex-direction: column; min-height: unset; }
-    .hero-image img { height: 100vw; width: 100%; }
+    .hero { flex-direction: column; min-height: unset; margin: 0; width: 100%; }
+    .hero-image { margin: 0; padding: 0; width: 100%; }
+    .hero-image img { height: 100vw; width: 100vw; display: block; }
     .hero-overlay { padding: 0 1.25rem; }
     .hero-left { padding-top: 3rem; }
     .hero-about-subtitle { font-size: 18px; letter-spacing: 0.12em; }
