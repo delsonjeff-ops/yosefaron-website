@@ -129,7 +129,7 @@
     position: absolute;
     bottom: 0.5rem;
     right: 3.5rem;
-    font-size: 15px;
+    font-size: 11px;
     font-family: var(--sans);
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -199,9 +199,20 @@
     margin: 0;
   }
 
+  .below-hero-location {
+    font-size: 11px;
+    font-family: var(--sans);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(26,22,18,0.5);
+    padding: 0.2rem 3.5rem;
+    background: var(--bg);
+    text-align: right;
+  }
+
   /* ── PHOTO GRID ── */
   .photos-section {
-    padding: 3.5rem 3.5rem 3rem;
+    padding: 1rem 3.5rem 3rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
@@ -251,6 +262,20 @@
     .photo-item.landscape { height: 160px; }
     .photo-item.portrait { height: 240px; }
     .photo-caption { margin-top: 6px; text-align: left !important; }
+  }
+
+  /* ── ABOUT ── */
+  .about-section {
+    padding: 3rem 3.5rem;
+    max-width: 680px;
+  }
+
+  .about-text {
+    font-family: var(--serif);
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(26,22,18,0.65);
+    margin-bottom: 1.5rem;
   }
 
   /* ── CONTACT ── */
@@ -485,9 +510,9 @@
       <p class="hero-bio">Yosef Aron is a Brooklyn-based craftsman who builds furniture, designs custom pieces, and fixes what's broken — big jobs and small ones alike. Have an idea? Need an idea? Call Yosef Aron.</p>
     </div> -->
     <div class="hero-logo">Yosef Aron <span style="font-size:0.65em;">made that</span></div>
-    <div class="hero-location">Brooklyn, NY</div>
   </div>
 </div>
+<div class="below-hero-location">Brooklyn, NY</div>
 
 <!-- PHOTOS -->
 <div class="photos-section" id="photos"></div>
@@ -497,7 +522,8 @@
   <div class="contact-left">
     <p class="contact-name">Yosef Aron Made That</p>
     <p class="contact-sub">Brooklyn, NY</p>
-    <p class="contact-phone"><a href="tel:+13472173366" style="color:inherit;text-decoration:none;">347·217·3366 — Call Yosef</a></p>
+    <p class="about-text">Yosef Aron is a Brooklyn-based craftsman who builds furniture, designs custom pieces, and fixes what's broken — big jobs and small ones alike.<br><br>Have an idea? Need an idea? Call Yosef Aron.</p>
+    <p class="contact-phone"><a href="tel:+13472173366" style="color:inherit;text-decoration:none;">347·217·3366</a></p>
     <div class="contact-btns">
       <a class="contact-btn" href="https://wa.me/13472173366" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor">
