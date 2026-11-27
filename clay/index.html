@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Clay by Yosef Aron</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FDFAF3;
+    --text: #1a1612;
+    --text-mid: rgba(26,22,18,0.55);
+    --text-dim: rgba(26,22,18,0.35);
+    --rule: rgba(26,22,18,0.1);
+    --serif: 'Georgia', 'Times New Roman', serif;
+    --sans: 'Helvetica Neue', 'Arial', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--serif);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 3rem 3.5rem 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 27rem;
+  }
+
+  .header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-tagline {
+    font-size: 52px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(26,22,18,0.25);
+    letter-spacing: 0.01em;
+    text-align: left;
+    line-height: 1;
+    padding-bottom: 0.2rem;
+  }
+
+  .site-title {
+    font-size: 72px;
+    font-family: var(--sans);
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: rgba(26,22,18,0.85);
+    line-height: 1;
+    -webkit-text-stroke: 2px rgba(26,22,18,0.85);
+    transform: scaleY(1.15);
+    transform-origin: top left;
+    display: inline-block;
+  }
+
+  .site-byline {
+    font-size: 22px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text-mid);
+    letter-spacing: 0.01em;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+  }
+
+  .site-byline a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .site-byline a:hover { color: var(--text); }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 3rem 3.5rem 4rem;
+    align-items: start;
+  }
+
+  /* ── PRODUCTS ── */
+  .products {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-right: 3rem;
+  }
+
+  .product-card {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .product-photo {
+    width: 100%;
+    height: 320px;
+    background: rgba(26,22,18,0.07);
+    overflow: hidden;
+  }
+
+  .product-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    filter: sepia(6%) saturate(85%) brightness(98%);
+  }
+
+  .product-card:hover .product-photo img {
+    transform: scale(1.03);
+  }
+
+  .product-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-family: var(--sans);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .product-label {
+    margin-top: 0.6rem;
+    font-size: 13px;
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--text-mid);
+    letter-spacing: 0.01em;
+  }
+
+  /* ── ABOUT COLUMN ── */
+  .about-col {
+    position: sticky;
+    top: 3rem;
+    padding-left: 3rem;
+    border-left: 0.5px solid var(--rule);
+  }
+
+  .about-col p {
+    font-size: 16px;
+    font-family: var(--serif);
+    font-style: italic;
+    line-height: 1.85;
+    color: var(--text-mid);
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── PRODUCT PANEL (lightbox) ── */
+  #panel {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #panel.open { display: flex; }
+
+  #panel-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,8,6,0.85);
+    cursor: pointer;
+  }
+
+  #panel-box {
+    position: relative;
+    z-index: 2;
+    background: var(--bg);
+    width: 90vw;
+    max-width: 860px;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  #panel-photo {
+    height: 480px;
+    background: rgba(26,22,18,0.07);
+    overflow: hidden;
+  }
+
+  #panel-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(6%) saturate(85%) brightness(98%);
+  }
+
+  #panel-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-family: var(--sans);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  #panel-info {
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #panel-name {
+    font-size: 22px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  #panel-price {
+    font-size: 14px;
+    font-family: var(--sans);
+    letter-spacing: 0.08em;
+    color: var(--text-mid);
+    margin-bottom: 1.5rem;
+  }
+
+  #panel-desc {
+    font-size: 14px;
+    font-family: var(--serif);
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--text-mid);
+    flex-grow: 1;
+    margin-bottom: 2rem;
+  }
+
+  #panel-buy {
+    display: inline-block;
+    font-size: 11px;
+    font-family: var(--sans);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    border: 0.5px solid rgba(26,22,18,0.3);
+    padding: 12px 24px;
+    cursor: pointer;
+    background: transparent;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    width: fit-content;
+  }
+
+  #panel-buy:hover { border-color: var(--text); }
+
+  #panel-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.2rem;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--text-dim);
+    cursor: pointer;
+    z-index: 3;
+    line-height: 1;
+    padding: 0.3rem;
+  }
+
+  #panel-close:hover { color: var(--text); }
+
+  .about-statement {
+    font-size: 22px;
+    font-family: var(--sans);
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    overflow-wrap: break-word;
+  }
+
+  /* ── CLOSING ── */
+  .closing {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding: 3rem 3.5rem;
+    border-top: 0.5px solid var(--rule);
+  }
+
+  .closing-photo {
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+    background: rgba(26,22,18,0.07);
+    overflow: hidden;
+  }
+
+  .closing-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(6%) saturate(85%) brightness(98%);
+  }
+
+  .closing-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-family: var(--sans);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .closing-name {
+    font-size: 20px;
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .closing-location {
+    font-size: 11px;
+    font-family: var(--sans);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+  }
+
+  .closing-phone {
+    font-size: 17px;
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--text-mid);
+    margin-bottom: 1rem;
+  }
+
+  .closing-phone a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .closing-btns {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .closing-btn {
+    font-size: 11px;
+    font-family: var(--sans);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    border: 0.5px solid rgba(26,22,18,0.2);
+    padding: 9px 16px;
+    text-decoration: none;
+    transition: color 0.18s, border-color 0.18s;
+  }
+
+  .closing-btn:hover { color: var(--text); border-color: rgba(26,22,18,0.4); }
+
+  /* ── SIGNATURE ── */
+  .signature {
+    text-align: center;
+    padding: 2.5rem 3.5rem 2rem;
+    font-size: 32px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(26,22,18,0.3);
+    letter-spacing: 0.01em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 1.4rem 3.5rem;
+    border-top: 0.5px solid var(--rule);
+    font-size: 10px;
+    color: var(--text-dim);
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 720px) {
+    .main { grid-template-columns: 1fr; padding: 0 1.25rem 3rem; }
+    .products { padding-right: 0; }
+    .about-col { position: static; padding-left: 0; border-left: none; border-top: 0.5px solid var(--rule); padding-top: 2rem; margin-top: 2rem; }
+    #panel-box { grid-template-columns: 1fr; width: 95vw; }
+    #panel-photo { height: 260px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="site-title">Clay</div>
+    <div class="site-byline"><span style="font-size:0.65em;">by</span> <a href="../index.html">yosef aron</a></div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- PRODUCTS -->
+  <div class="products">
+
+    <div class="product-card" onclick="openPanel(0)">
+      <div class="product-photo">
+        <div class="product-placeholder">Photo — Piece 01</div>
+      </div>
+      <div class="product-label">Vessel No. 1</div>
+    </div>
+
+    <div class="product-card" onclick="openPanel(1)">
+      <div class="product-photo">
+        <div class="product-placeholder">Photo — Piece 02</div>
+      </div>
+      <div class="product-label">Bowl No. 1</div>
+    </div>
+
+    <div class="product-card" onclick="openPanel(2)">
+      <div class="product-photo">
+        <div class="product-placeholder">Photo — Piece 03</div>
+      </div>
+      <div class="product-label">Cup No. 1</div>
+    </div>
+
+    <div class="product-card" onclick="openPanel(3)">
+      <div class="product-photo">
+        <div class="product-placeholder">Photo — Piece 04</div>
+      </div>
+      <div class="product-label">Plate No. 1</div>
+    </div>
+
+    <div class="product-card" onclick="openPanel(4)">
+      <div class="product-photo">
+        <div class="product-placeholder">Photo — Piece 05</div>
+      </div>
+      <div class="product-label">Vessel No. 2</div>
+    </div>
+
+  </div>
+
+  <!-- ABOUT -->
+  <div class="about-col">
+    <div class="about-statement">Less stuff. More real.</div>
+    <p>My ceramic art is built around the belief that the home should be free of excess and the things you have should matter. It's not about minimalism — it's about connection. And if you don't connect, why do you need it?</p>
+    <p>My goal is for you to build a relationship with a piece over time, to commune with it and communicate with it. To feel its presence in the room, in your hands, at your table.</p>
+    <p>Functional, functionless, on a table, on a shelf — my work aims to share a bit of itself with you.</p>
+    <p>Most importantly, my work attempts to bring a feeling of Jewishness into the home — to bring the comfort and warmth of our heritage into your space — to surround itself with your family.</p>
+  </div>
+
+</div>
+
+<!-- PRODUCT PANEL -->
+<div id="panel">
+  <div id="panel-bg" onclick="closePanel()"></div>
+  <div id="panel-box">
+    <div id="panel-photo">
+      <div id="panel-photo-placeholder">Photo</div>
+    </div>
+    <div id="panel-info">
+      <div>
+        <div id="panel-name">Vessel No. 1</div>
+        <div id="panel-price">$—</div>
+        <div id="panel-desc">Placeholder description of this piece — dimensions, clay body, glaze, and anything else worth knowing.</div>
+      </div>
+      <a id="panel-buy" href="#">Inquire to purchase</a>
+    </div>
+    <button id="panel-close" onclick="closePanel()">✕</button>
+  </div>
+</div>
+
+<!-- CLOSING SECTION -->
+<div class="closing">
+  <div class="closing-photo">
+    <div class="closing-photo-placeholder">Photo — Yosef at work</div>
+  </div>
+  <div class="closing-contact">
+    <p class="closing-name">Yosef Aron</p>
+    <p class="closing-location">Brooklyn, NY</p>
+    <p class="closing-phone"><a href="tel:+13472173366">347·217·3366</a></p>
+    <div class="closing-btns">
+      <a class="closing-btn" href="https://wa.me/13472173366" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="closing-btn" href="mailto:yosefmadethat@gmail.com">Email</a>
+    </div>
+  </div>
+</div>
+
+<!-- SIGNATURE -->
+<div class="signature">Yosef Aron made that</div>
+
+<footer>
+  Clay by Yosef Aron &mdash; Brooklyn, NY
+</footer>
+
+<script>
+  var products = [
+    { name: 'Vessel No. 1', price: '$—', desc: 'Placeholder description of this piece — dimensions, clay body, glaze, and anything else worth knowing.' },
+    { name: 'Bowl No. 1',   price: '$—', desc: 'Placeholder description of this piece — dimensions, clay body, glaze, and anything else worth knowing.' },
+    { name: 'Cup No. 1',    price: '$—', desc: 'Placeholder description of this piece — dimensions, clay body, glaze, and anything else worth knowing.' },
+    { name: 'Plate No. 1',  price: '$—', desc: 'Placeholder description of this piece — dimensions, clay body, glaze, and anything else worth knowing.' },
+    { name: 'Vessel No. 2', price: '$—', desc: 'Placeholder description of this piece — dimensions, clay body, glaze, and anything else worth knowing.' },
+  ];
+
+  function openPanel(i) {
+    var p = products[i];
+    document.getElementById('panel-name').textContent = p.name;
+    document.getElementById('panel-price').textContent = p.price;
+    document.getElementById('panel-desc').textContent = p.desc;
+    document.getElementById('panel').classList.add('open');
+  }
+
+  function closePanel() {
+    document.getElementById('panel').classList.remove('open');
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePanel();
+  });
+</script>
+
+</body>
+</html>
